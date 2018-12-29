@@ -1,28 +1,26 @@
 #!/bin/bash
 
+echo "build.sh : maven build";
+
 mvn clean install
 
-cd target/libs
+echo "build.sh : cheerpj compilation begin";
 
-libs='';
-for file in * ; do
+py cheerpj_1.3/cheerpjfy.py --pack-jar=target/ltwa-1.0-SNAPSHOT-jar-with-dependencies.jar -j 10 target/ltwa-1.0-SNAPSHOT-jar-with-dependencies.jar >> build.log
 
-    crt="$file";
-    libs="$libs:target/libs/$crt";
-
-done
-
-echo "$libs";
-
-cd ../../
-
-py cheerpj_1.3/cheerpjfy.py --deps=$libs target/ltwa-1.0-SNAPSHOT.jar
-
+echo "build.sh : Compilation finished";
 
 cp src/main/webapp/index.html target/
 
-py -m http.server 8080
+cd target
 
-py -mwebbrowser http://localhot:8080
+echo "build.sh : start WebServer to port 8080";
+
+py -m http.server 8080 &
+
+py -mwebbrowser http://localhost:8080
+
+
+read -p 'Type text to quit: ' uservar
 
 
