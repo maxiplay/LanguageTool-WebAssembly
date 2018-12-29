@@ -16,13 +16,14 @@ echo "$libs";
 
 cd ../../
 
-py cheerpj_1.3/cheerpjfy.py --deps=$libs target/ltwa-1.0-SNAPSHOT.jar
-
+py cheerpj_1.3/cheerpjfy.py -j 10 --deps=$libs target/ltwa-1.0-SNAPSHOT.jar >> build.log
 
 cp src/main/webapp/index.html target/
 
-py -m http.server 8080
+cd target
 
-py -mwebbrowser http://localhot:8080
+py -mwebbrowser http://localhost:8080
+
+py -m http.server 8080
 
 

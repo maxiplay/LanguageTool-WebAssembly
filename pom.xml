@@ -24,7 +24,7 @@
 
         <dependency>
             <groupId>org.languagetool</groupId>
-            <artifactId>language-en</artifactId>
+            <artifactId>language-fr</artifactId>
             <version>4.4</version>
 
             <!-- <exclusions>
