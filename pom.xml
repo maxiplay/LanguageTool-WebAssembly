@@ -25,14 +25,14 @@
         <dependency>
             <groupId>org.languagetool</groupId>
             <artifactId>language-fr</artifactId>
-            <version>4.4</version>
+            <version>4.5-SNAPSHOT</version>
 
-            <!-- <exclusions>
+             <exclusions>
                <exclusion>
                  <groupId>org.languagetool</groupId>
                  <artifactId>hunspell-native-libs</artifactId>
                </exclusion>
-             </exclusions>-->
+             </exclusions>
         </dependency>
 
 
