@@ -16,7 +16,9 @@ echo "$libs";
 
 cd ../../
 
-py cheerpj_1.3/cheerpjfy.py -j 10 --deps=$libs target/ltwa-1.0-SNAPSHOT.jar >> build.log
+py cheerpj_1.3/cheerpjfy.py -j 10 --deps=$libs target/ltwa-1.0-SNAPSHOT.jar
+
+#>> build.log
 
 cp src/main/webapp/index.html target/
 
