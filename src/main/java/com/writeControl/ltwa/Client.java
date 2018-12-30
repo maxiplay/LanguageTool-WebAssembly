@@ -8,41 +8,84 @@ import org.languagetool.rules.RuleMatch;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.Arrays;
 import java.util.List;
 
 public class Client {
 
+
     public static void main(String[] args) throws IOException {
 
         Language language = new French();
-        // List<Rule> rules = langTool.getAllRules();
 
-         JLanguageTool langTool = new JLanguageTool(language);
 
-       /* langTool.disableRule(HunspellRule.RULE_ID);
-        langTool.disableRule(HunspellNoSuggestionRule.RULE_ID);*/
+        JLanguageTool langTool = new JLanguageTool(language);
 
-       try{
+        List<String> listText = getListText();
 
-           List<RuleMatch> matchs = langTool.check("Les enfant aiment la soupe");
-           System.out.println(matchs);
+        for (String text : listText) {
 
-       }catch(Exception e){
-
-           System.out.println(e);
-
-           System.out.println(e.getMessage());
-           System.out.println(e.getCause());
-
-           StringWriter errors = new StringWriter();
-           e.printStackTrace(new PrintWriter(errors));
-
-           System.out.println( errors.toString());
+            check(text, langTool);
 
         }
 
 
+    }
 
+
+    public static void check(String text, JLanguageTool langTool) {
+
+        try {
+
+            long time = System.currentTimeMillis();
+
+            List<RuleMatch> matchs = langTool.check(text);
+
+            time = System.currentTimeMillis() - time;
+
+
+            System.out.println(time);
+
+        } catch (Exception e) {
+
+            System.out.println(e);
+
+            System.out.println(e.getMessage());
+            System.out.println(e.getCause());
+
+            StringWriter errors = new StringWriter();
+            e.printStackTrace(new PrintWriter(errors));
+
+            System.out.println(errors.toString());
+
+        }
+    }
+
+
+    private static List<String> getListText() {
+
+        return Arrays.asList(
+                "Ils croivent vraiment que c'est correcte d'écrire cela hors que c'est faux.",
+                "Non mais le pire c'est quand même le bonne anniversaire.",
+                "il faux ce mefiait du quand dit raton.",
+                " je vis sur Paris.",
+                "Parler doucement pour avoir le temps de bien former vos phrases !",
+                "Cela peus vous donner du charme.",
+                "Un mot mal choisie ou mal prononcé peu conduire à des situation amusantes",
+                "L’une des jarres était fêlé et perdait presque la moitié de son précieu contenu au cours de chaque voyage",
+                "Tu ne t’es pas aperçue que toutes ces belles fleurs poussent de ton côté du chemin seulement ? Il n’ y en a pas de l’autre côté, du côté de la jarre en bon état !",
+                "Gâce à toi, j’ai pu pendant ces deux ans cueillir de magnifiques fleurs qui ont décoré la table du maître. Sans toi, jamais je n’aurais trouvé des fleurs aussi fraîches, aussi gracieuses, aussi colorées.",
+                "Une voiture noire de type cross over s’arrêta devant l’hôtel où attendait un voiturier, des skis étaient attachés sur les barres de toit, le coffre sans doute plein de bagages. Une jeune femme blonde sorti avec grâce par la portière du passager.",
+                "Pour le moment elle ne voulait pas savoir où se trouvaient ses parents. Tout ce qui lui importait était de monter dans sa suite, se changer et qu’elle puisse enfin chausser ses skis. Elle se dirigea vers l’ascenseur, appuya sur le bouton d’appel et finalement changea d’avis pour prendre les escaliers, cela lui ferait du bien après plusieurs heures de voyage, ses muscles étaient un peu engourdi par le manque d’activité physique. Les 3 étages ne la fatiguèrent pas, dans sa vie de tous les jours elle était plutôt sportive, natation, course à pied, parfois tennis avec ses parents et même un peu d’équitation, si vous considérez cela comme un sport bien sur – à vrai dire c’est assez épuisant comme loisir. Et bien évidemment plusieurs semaines de ski chaque année, ainsi que d’autres activités sportives comme le canyoning en rivière ou le kit surf en mer. Les numéros de chambre étaient bien indiqués et elle trouva rapidement sa chambre. La clé tourna aisément dans la serrure et la porte s’ouvrit sur un espace assez grand pour un appartement d’une personne. Ce qui impressionnait les visiteurs au premier abord c’était les grandes vitres remplissant tout le pan de mur face à la porte, la vue sur la montagne et toute cette neige était ahurissante. Heureusement pour réchauffer l’atmosphère des fourrures grises et blanches étaient disposées sur les quelques fauteuils du salon. Sinon l’ensemble de l’appartement était peint dans des tons lumineux, les portes de placard et le plafond en bois clair. Le salon et la chambre ne formaient qu’une seule pièce, très ouverte. Le lit était fait au carré, avec d’énormes coussins qui tendait les bras à Lilli-Anna. Elle ne se jeta pas dedans pour autant mais continua sa visite. Une porte coulissante la fit entrer dans une grande salle de bain en marbre gris rosé. La baignoire en verre laissant voir l’eau chaude qu’avait fait couler les hôteliers pour leur hôte était disposée sur un piédestal lui aussi en marbre. Un panier de savons et shampoings, ainsi qu’une épaisse serviette chaude l’attendait également. L’odeur agréable des savons et la vapeur de l’eau brulante réussi à attirer la jeune femme qui se déshabilla immédiatement pour profiter des agréments de cet hôtel de luxe. Se sentant un peu mal à l’aise dans cette baignoire transparente elle ajouta du savon pour créer de la mousse. De ce côté de la salle de bain elle pouvait voir dans l’angle près de la porte une douche à l’italienne carrée en verre, avec au plafond une énorme pomme de douche avec effet pluie. Sur les murs de la douche étaient disposés de petites mosaïques sombres et brillantes, accusant de la buée créée par l’eau chaude du bain. Lilli-Anna se demanda s’ils avaient un jacuzzi extérieur, avec cette basse température d’hiver elle aimait se retrouver dans l’eau brulante entourée de neige. Elle continua d’observer la salle de bain puis se détendit un moment, confortablement installée et chaleureusement enveloppée. Les yeux fermés elle sombra pratiquement dans le sommeil, mais une petite étincelle lui rappela que ce qu’elle attendait avant tout était d’aller skier. Lilli-Anna se leva donc de la baignoire, le corps à moitié recouvert de mousse et se dirigea vers la douche, laissant derrière son chemin de petites flaques d’eau. La douche se situait entre la porte coulissante et une haute fenêtre dont elle tira le store malgré la buée qui cachait déjà la vue. Assez pudique, elle n’aimait pas l’idée qu’on puisse l’entrevoir nue. Après sa douche, l’épaisse serviette la réconforta, comme un câlin d’une personne qu’on aime. Vu comment elle cajolait sa serviette on aurait pu croire qu’elle n’avait pas l’habitude de recevoir de l’affection, ou était-ce simplement un grand confort que de se réchauffer dans du coton bio extrêmement doux. De retour dans la pièce à vivre, la jeune femme découvrit ses 3 valises entreposées droitement près de la porte d’entrée, où l’attendait le chauffeur du cross over, bouquinant sur son Smartphone et installé contre le meuble d’entrée. Il leva la tête, découvrant Lilli-Anna emmitouflée dans sa serviette blanche. Elle lui donna congés puis après qu’il soit sorti entreprit de fouiller ses valises à la recherche de sa tenue de ski. Les grandes chaussettes, le pantalon noir à bretelles, le sous pull, la veste fine et élégante mais non moins chaude, et les lunettes de soleil. Ses chaussures de ski et son casque devaient sans doute l’attendre au rez-de-chaussée dans l’emplacement réservé au matériel de ski. Toute habillée elle dévala les escaliers des 3 étages pour arriver à la réception. C’est avec regret qu’elle y croisa ses parents, ils la retarderaient sans doute dans sa course au ski.",
+                "Ils tournèrent les talons, laissant leur fille seule dans sa combinaison où elle commençait un peu à suffoquer. La lèvre du haut pincée, les sourcils froncés, elle resta statique à observer ses parents partir, jusqu’à ce qu’ils disparaissent derrière le tournant du couloir derrière la réception. La vision de ses parents s’en allant s’échangea avec celle de Tom qui apparut. Il lui souriait d’un air triste, lui aussi été déçu de ne pas pouvoir aller skier. Sans mot dire ils remontèrent à l’appartement de Lilli-Anna, celle-ci trainant les pieds dans les escaliers, fatiguée de devoir obéir à ses parents. A son âge il serait temps qu’ils lui demandent son avis plutôt que de la contraindre. En entrant dans son appartement elle vit que ses valises avaient été vidés et tout le linge rangé dans les placards en bois clair. Elisa la femme à tout faire, embauchée par ses parents était passée par là. Décidemment ils avaient le contrôle sur une grosse partie de sa vie. Lilli-Anna leva les yeux aux ciels puis congédia Tom pour qu’elle puisse rester seule et ainsi se préparer pour le diner. Dans la penderie elle prit une robe pull grise aux manches longues et une paire de collants noirs. Elle alla s’habiller dans la grande salle de bain dont le bain et les flaques d’eau laissées quelques temps auparavant par elle-même avaient été nettoyé. D’une certaine façon c’était agréable que tout soit toujours propre et rangé, mais sans en avoir donné la directive c’était plutôt dérangeant que quelqu’un soit venu dans son appartement sans son accord. Elle ouvrit sa vanity – également rangée au bon endroit par Elisa – dont elle sortit du maquillage. Sa mère lui avait payé des cours de maquillage pour ses 16 ans, pour que sa fille soit présentable, et surtout pour qu’elle-même n’ait pas besoin d’apprendre à le faire à sa fille. Grâce à ces cours Lilli-Anna se maquilla rapidement, et entreprit de se boucler quelque peu ses cheveux blonds. Ils lui arrivaient entre les épaules et la poitrine, elle les laissait pousser pour essayer d’obtenir une longue chevelure comme les stars. Avec son fer à boucler de dernière génération l’entreprise fut vite réalisée, ensuite un peu de lac et le tour est joué. Elle passa sa robe puis ses collants et s’installa dans son lit d’où elle alluma la grande télé 3D du salon. Il lui restait une petite heure avant le diner, une petite heure qu’elle passa devant une série américaine dont elle était friande. Une alarme sur son téléphone lui rappela qu’il était temps de descendre rejoindre sa famille. Elle enfila des escarpins noirs et prit l’ascenseur dans lequel une musique d’ambiance résonnait lentement. Cette musique l’apaisât avant d’arriver au niveau du restaurant, un jeune homme habillé en serveur lui demanda son nom puis lui montra la table réservée pour sa famille. Il y avait 6 couverts d’installés. Lilli-Anna fronça les sourcils, ses parents attendaient donc 3 invités. Elle s’installa à l’une des places en bord de table et commanda une coupe de champagne – faut-il toujours avoir une raison pour boire du champagne ? Non évidemment – mais elle n’eut pas le temps d’y goûter, sa famille arrivait déjà. Son père Eric en tête du cortège, toujours avec ses lunettes carrée à la mode et ses cheveux noirs, en costume gris clair comme s’il se rendait à un mariage. A côté de lui, Lilli-Anna reconnu son oncle Marc-Antoine – quelle idée d’appeler quelqu’un comme ça à notre époque ! Il discutait avidement avec Eric. Ensuite la jeune femme vu sa mère Carole apprêtée d’une longue robe bleue marine, gantée du même tissu et parée d’un très brillant collier en diamants.",
+                "Elle était accompagnée d’un couple que Lilli-Anna ne connaissait pas. En arrivant tous à la table ils saluèrent la jeune femme chacun leur tour et s’installèrent avec elle. Ses parents en milieu de table, son oncle face à elle et le couple d’invité à l’autre bout de la table, dont elle était bien contente d’être éloignée. Les connaissances de ses parents étaient pour la plupart du temps pour du travail ou de l’argent et Lilli-Anna n’aimait pas ce genre de diner de « famille ». Après le diner la jeune femme proposa à Tom d’aller se balader dans la ville, elle aimait l’ambiance des villes le soir, surtout un samedi. Elle verrait les rues piétonnes entourées de commerces touristiques illuminés et les restaurants et bars bondés par les touristes mais aussi par les locaux et saisonniers qui fêtent la fin de semaine. L’hôtel était situé un peu en retrait des rues commerçantes mais en quelques pas ils furent immergés dans cette ambiance festive. La grande rue était très belle, encore décorée des fêtes de fin d’année, et comme prévu, les commerces illuminaient toute l’allée. Des bars avaient installé des tables et chaises en terrasse, comme si le temps froid ne dérangerait pas les clients, et effectivement il y a avait du monde en terrasse ! Il n’était qu’environ 21h et certains touristes étrangers étaient déjà bien éméchés. Au moins ça devait les réchauffer… Un groupe de jeunes touristes sorti d’un restaurant pour se diriger dans un pub irlandais. Ils bousculèrent quelque peu Lilli-Anna qui s’était arrêtée pour observer ce même pub, les jeunes devaient sans doute être étudiants, ils finiraient la soirée dans ce pub, entre amis, puis rejoindraient sans doute le même logement où ils passeraient leur séjour tous ensemble. Voilà un peu ce que Lilli-Anna désespérait de vivre. Elle n’était jamais partie en vacances avec des amis, et pour cela il faudrait d’abord en avoir, mais ce n’est pas dans sa grande école de ??? où uniquement des enfants de riches se côtoyaient qu’elle aurait pu se faire de vrais amis. Elle trouvait ces gens faux, tout comme elle le pensait de ses parents. Elle avait bien son amie Alizée mais ces parents étaient aussi inquisiteurs que les siens et ne permettaient pas que les deux jeunes filles partent seules en vacances.",
+                "Son sommeil fut assez profond pour qu’elle se réveille en forme, sans attendre elle fit tout pour rejoindre ses skis au plus vite. Enfin, la piste s’ouvrait à elle, une grande pente assez raide et effrayante, mais pas pour Lilli-Anna. Elle se lançait sur n’importe quelle piste, sur n’importe quelle pente, sans frayeur. Le ski était une seconde nature pour elle, depuis toute petite elle était entourée de skieurs chevronnés. Avec ses écouteurs dans les oreilles et une chanson puissante, elle se propulsait avec vive allure sur les pentes enneigées. Le vent glacial fouettait son visage mais sans jamais lui donner froid, l’effort physique intense des descentes la réchauffait largement. Elle slalomait avec grâce, sans même glisser sur les plaques de verglas. De loin on aurait pu croire d’elle qu’elle skiait avec ennui, tellement à l’aise sans ses bâtons. Mais au contraire, chaque tournant, chaque appuis, chaque bouffée d’air pur de la montagne lui donner de quoi respirer. C’était une escapade pour ses soucis du quotidien et elle aurait aimé que la piste ne se termine jamais. Elle ne regardait même plus la piste, son regard perdu dans le lointain des barres montagneuses du Mont Blanc, ces majestueux pics tellement imposants, donnant à certains claustrophobes l’impression d’être enfermé. Elle s'arrêta en un beau dérapage contrôlé de ses longs et fins skis rouge et noir. Le bas de la piste était assez raide et donnait directement sur les commerces et restaurants savoyards mais la jeune femme maitrisait bien ses skis. Elle ôta son casque blanc comme neige, remis un écouteur qui était tombé de son oreille en écartant une boucle blonde et observa la piste. De nombreux skieurs parcouraient la piste, certains plus vite que d’autres, quelques-uns étaient assis ou à genoux, leurs skis quelques mètres plus haut ou plus bas sur la piste, quelque fois même plantés dans la neige. Cette neige qui illuminait toute la montagne grâce au soleil rayonnant.",
+                "Lâchant les skis au pied du skieur malhabile, il accourut auprès de Lilli-Anna et lui tendit la main. La jeune femme releva lentement sa tête un peu étourdie, ses lunettes de soleil étaient tombées pendant le choc et éblouie par la neige étincelante elle plissa les yeux pour observer son assaillant. Le jeune homme, assis sur le côté, ses skis de travers et enchevêtrés dans ses bâtons, était stupéfait d’avoir dévalé toute la piste aussi vite et d’avoir renversé quelqu’un. D’ailleurs il le montrait bien sur son visage ahuri. Il portait un casque flashy, heureusement pour lui si ça lui arrivait souvent de tomber, et ses mains dont les gants pendaient à ses poignets avaient l’air crispées sur le manche des bâtons. Lilli-Anna s’amusa de ce visage hébété, la cabriole que lui avait fait faire le jeune homme était déjà oubliée, elle se releva sans le secours de Tom qui était toujours auprès d’elle – à force d’être toujours avec lui elle avait fini par ignorer sa présence – et s’avança avec un grand sourire pour aider le jeune homme toujours assis par terre. Entre temps elle n’avait pas vu les amis du skieur qui s’étaient approchés d’eux. L’un d’entre eux était même déjà à genoux près de son ami et lui demandait s’il allait bien. Il avait un bandeau noir dans les cheveux et certains d’entre eux dépassaient à l’arrière du bandeau. Il avait l’air inquiet et relevant la tête comme pour demander de l’aide, il s’arrêta sur le visage de Lilli-Anna qui l’observait déjà. Son sourire avait disparu devant le regard détaché du jeune homme au bandeau. Ils s’observèrent un moment jusqu’à ce que le skieur périlleux ouvre enfin la bouche.",
+                "Elle ne répondit pas et haussa simplement les épaules en signe d’indifférence, à vrai dire elle avait toujours eu un garde du corps et s’y était habitué. Tout en discutant ils avaient rejoint la troupe d’amis et Eli commença les présentations. Le jeune au bandeau s’appelait Lucas, son visage était fermé, contrairement à son ami Eli il ne laissait paraitre aucune émotion. Ensuite Eli présenta Antoine un bon vivant, Jéjé un grand blond mince et sa petite amie Estelle sportive et svelte malgré la combinaison de ski épaisse. Il y avait également Victor dont la particularité qui ressortait de son physique était sa bouche proéminente, Eloïse aux cheveux châtains et au teint pâle, Axelle aux très longs cheveux blonds qui avaient l’air de sortir de n’importe où de sa combinaison et enfin Cyrielle une grande perche très souriante.",
+                "Tout le monde suivi le bon vivant, les skis sur les épaules. Estelle et Jéjé main dans la main, Axelle et Cyrielle comme deux meilleures amies bras dessus bras dessous. Victor draguant visiblement Eloïse qui riait bien de ses plaisanteries. Et enfin Lucas qui accéléra la cadence pour essayer de rattraper Antoine l’ours de tête. Ils avaient tous une allure assez extravagantes en marchant en cadence avec leurs chaussures de ski, les bâtons trainant de ça de la, les skis sur les épaules ou à bout de bras. Lilli-Anna et Eli fermèrent le chemin et échangèrent leur point de vue sur la chute qu’avait fait Eli peu de temps avant. La jeune femme souriait, elle était heureuse qu’un groupe de jeunes étudiants l’accepte. Le restaurant était assez bondé mais par chance une grande table se libéra à leur arrivée. Chacun commanda un chocolat chaud ou un café et une viennoiserie, Lilli-Anna juste un thé – évidemment comme la plupart des jeunes filles de son âge elle faisait attention à sa ligne. Elle était assise au centre de tous ces jeunes et elle en était un peu intimidée, quelques groupes s’étaient formés, un à droite, un à gauche, et elle fut bientôt prise dans une conversation autour du domaine skiable des Grands-Montets – juste là où ils venaient de skier.",
+                "Ria Cyrielle qui les avait observés depuis tout à l’heure. Tout le monde se tourna vers eux et Lilli-Anna ne put s’empêcher de rougir alors qu’ils ne fleuretaient même pas. Décidemment elle n’avait pas l’habitude de gérer tant d’intérêt pour elle.");
 
     }
+
+
 }
